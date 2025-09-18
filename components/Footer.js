@@ -23,7 +23,7 @@ export default function Footer() {
           <h3 className="text-2xl font-semibold font-poppins mb-4">Contact</h3>
           <ul className="space-y-2 text-lg font-inter text-gray-200">
             <li>📍 Hawaii, USA</li>
-            <li>📧 fullstackmanmohan@gmail.com</li>
+            <li>📧 fullstack.manmohan@gmail.com</li>
             <li>📞 +1 (808) 666 3188</li>
           </ul>
         </div>

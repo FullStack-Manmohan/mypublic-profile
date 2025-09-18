@@ -45,7 +45,8 @@ export default function Home() {
                     About Me
                   </h2>
                   <p className="text-[#111827] text-lg mb-6 font-inter">
-                    Hi — I’m a full-stack developer with over 10 years of experience building clean, reliable, and scalable web apps. I work mostly with <b className="text-[#1E3A8A]">React, Next.js, and Node.js</b>, and I’ve helped startups and small teams turn ideas into full-featured platforms that are fast, secure, and easy to maintain.
+                  Hi — I’m a full-stack developer with over 10 years of experience building clean, reliable, and scalable web apps. Currently working as a <b className="text-[#1E3A8A]">Programmer at the University of Hawaii at Manoa</b>. I specialize in <b className="text-[#1E3A8A]">React, Next.js, and Node.js</b>, and I’ve helped startups and small teams turn ideas into full-featured platforms that are fast, secure, and easy to maintain.
+
                     <br /><br />
                     I don’t just write code — I think about the full picture. How the user will interact with the product. How the backend connects everything together. How the design translates into real performance. I like solving problems and building things that actually work.
                     <br /><br />
