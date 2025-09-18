@@ -190,7 +190,7 @@ export default function ContactPage() {
       >
         <iframe
           title="Honolulu Map"
-          src="https://www.openstreetmap.org/export/embed.html?bbox=-157.8583%2C21.3069%2C-157.8583%2C21.3069&amp;layer=mapnik"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d921.3906648226896!2d-157.85204733154774!3d21.294742268118046!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7c006e09730af385%3A0x5f6888293ad32dac!2sHub%20Coworking%20Hawai%E2%80%98i!5e0!3m2!1sen!2sus!4v1758228747242!5m2!1sen!2sus"
           className="w-full h-64 border-0"
           loading="lazy"
         ></iframe>
