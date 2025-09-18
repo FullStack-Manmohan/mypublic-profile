@@ -1,8 +1,10 @@
-"use client"
+"use client";
+
 import { FaReact, FaServer, FaCloud, FaMobileAlt, FaChartBar, FaRocket } from "react-icons/fa";
 import { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";  
+
 const services = [
   {
     icon: <FaReact className="text-3xl text-[#10B981]" />,
@@ -53,9 +55,13 @@ export default function Services() {
   return (
     <section id="services" className="py-20 px-6 bg-white">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-[#1E3A8A] mb-10 font-poppins text-center">
-          Services
+        <h2 className="text-3xl md:text-4xl font-bold text-[#1E3A8A] mb-4 font-poppins text-center">
+          What I Do
         </h2>
+        <p className="text-center text-gray-600 mb-10 max-w-2xl mx-auto">
+          I create digital solutions that are functional, user-friendly, and visually engaging. 
+          Each service is focused on delivering high-quality results to bring your ideas to life.
+        </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, idx) => (
             <div

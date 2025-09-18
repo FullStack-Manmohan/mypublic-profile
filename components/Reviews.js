@@ -2,7 +2,7 @@
 import { FaStar } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import AOS from "aos";
-import "aos/dist/aos.css";    
+import "aos/dist/aos.css";
 
 const reviews = [
   {
@@ -171,6 +171,7 @@ export default function ReviewsPage() {
   const extendedReviews = [...reviews, ...reviews, ...reviews];
 
   useEffect(() => {
+    AOS.init({ duration: 1000, once: false });
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % reviews.length);
     }, 4000);
@@ -188,9 +189,21 @@ export default function ReviewsPage() {
 
   return (
     <main className="bg-gray-50 max-w-7xl mx-auto py-16 px-6 overflow-hidden">
-      <h1 className="text-4xl font-bold text-[#1E3A8A] mb-10 font-poppins text-center" data-aos="fade-up">
+      <h1
+        className="text-4xl font-bold text-[#1E3A8A] mb-4 font-poppins text-center"
+        data-aos="fade-up"
+      >
         Reviews & Testimonials
       </h1>
+
+      {/* Intro Paragraph */}
+      <p
+        className="text-center text-gray-600 mb-10 max-w-2xl mx-auto"
+        data-aos="fade-up"
+      >
+        Hear from clients and collaborators about their experience working with me. 
+        Each testimonial highlights the quality, reliability, and professionalism I bring to every project.
+      </p>
 
       <div className="relative w-full overflow-hidden">
         <div
@@ -201,7 +214,6 @@ export default function ReviewsPage() {
         >
           {extendedReviews.map((review, idx) => {
             const trimmed = trimText(review.text, idx);
-
             return (
               <div
                 key={idx}
@@ -242,9 +254,7 @@ export default function ReviewsPage() {
 
                   {/* Client + Company */}
                   <div>
-                    <p className="font-semibold text-[#1E3A8A]">
-                      {review.client}
-                    </p>
+                    <p className="font-semibold text-[#1E3A8A]">{review.client}</p>
                     {review.company && (
                       <p className="text-sm text-gray-600">{review.company}</p>
                     )}

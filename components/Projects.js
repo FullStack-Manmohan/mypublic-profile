@@ -1,8 +1,9 @@
-"use client";
+"use client"; 
 import { useEffect } from "react";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import AOS from "aos";
 import "aos/dist/aos.css";
+
 const allProjects = [
   {
     name: "AlohaCoin",
@@ -31,18 +32,23 @@ const allProjects = [
 ];
 
 export default function Projects() {
-   useEffect(() => {
-      AOS.init({
-        duration: 1000, 
-        once: false, 
-      });
-    }, []);
+  useEffect(() => {
+    AOS.init({
+      duration: 1000, 
+      once: false, 
+    });
+  }, []);
+
   return (
     <section id="projects" className="py-20 px-6 bg-white">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-[#1E3A8A] mb-10 font-poppins text-center">
+        <h2 className="text-3xl md:text-4xl font-bold text-[#1E3A8A] mb-4 font-poppins text-center">
           Top Projects
         </h2>
+        <p className="text-center text-gray-600 mb-10 max-w-2xl mx-auto">
+          Here are some of my featured projects showcasing a mix of web, blockchain, and mobile solutions. 
+          Each project reflects my focus on creating functional, scalable, and user-friendly digital experiences.
+        </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {allProjects.map((project) => (
             <div

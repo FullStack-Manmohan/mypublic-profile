@@ -4,7 +4,6 @@ import Hero from "../components/Hero";
 import Services from "../components/Services";
 import Projects from "../components/Projects";
 import Reviews from "../components/Reviews";
-import Contact from "../components/Contact";
 
 const skills = [
   {
@@ -133,7 +132,6 @@ export default function Home() {
         <Services />
         <Projects />
         <Reviews />
-        <Contact />
       </main>
     </div>
   );

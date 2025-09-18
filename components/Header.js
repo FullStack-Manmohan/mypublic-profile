@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 
 const navLinks = [
@@ -17,8 +18,16 @@ export default function Header() {
       <nav className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
-          <span className="text-[#F59E0B] font-bold text-2xl tracking-tight">Manmohan Y.</span>
-          <span className="hidden sm:inline text-white font-semibold text-lg">| Full-stack Dev & CEO</span>
+          <Image
+            src="/images/logo.y.jpg"
+            alt="Manmohan Y. Logo"
+            width={60}
+            height={60}
+            className=""
+            priority
+          />
+          {/* <span className="text-[#10B981] font-bold text-2xl tracking-tight">Manmohan Y.</span>
+          <span className="hidden sm:inline text-white font-semibold text-lg">| Full-stack Dev & CEO</span> */}
         </Link>
         {/* Desktop Nav */}
         <ul className="hidden md:flex gap-8 items-center">
