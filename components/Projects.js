@@ -7,6 +7,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import Image from "next/image";
 import { featuredProjects } from "../lib/projects";
+import ProjectCardIcon from "./ProjectCardIcon";
 
 export default function Projects() {
   useEffect(() => {
@@ -40,14 +41,11 @@ export default function Projects() {
               data-aos="fade-up"
               className="bg-[var(--color-surface-elevated)] rounded-[var(--radius-card)] shadow-[var(--shadow-card)] border border-[var(--color-border)] overflow-hidden hover-lift flex flex-col"
             >
-              <div className="relative w-full h-52 bg-slate-200">
-                <Image
-                  src={project.image}
-                  alt={project.name}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                />
+              <div className="relative w-full h-52 bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center overflow-hidden">
+                <div className="absolute inset-0">
+                  <Image src={project.image} alt="" fill className="object-cover opacity-20" sizes="(max-width: 768px) 100vw, 50vw" />
+                </div>
+                <ProjectCardIcon project={project} />
               </div>
               <div className="p-6 flex flex-col flex-1">
                 <h3 className="text-xl font-bold text-[var(--color-primary)] mb-1">{project.name}</h3>

@@ -83,8 +83,40 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="text-center text-slate-500 text-sm mt-12 pt-6 border-t border-white/5">
-        © {new Date().getFullYear()} Manmohan Yadav. Software Engineer & Founder, UpTecHunt.
+      <div className="flex flex-col items-center gap-4 mt-12 pt-6 border-t border-white/5">
+        <p className="text-slate-500 text-sm flex flex-wrap items-center justify-center gap-3">
+          <span>Powered by</span>
+          <a
+            href="https://www.nogatechsolutions.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-slate-400 hover:text-[var(--color-accent-light)] transition-colors font-medium"
+          >
+            <img
+              src="https://www.google.com/s2/favicons?domain=nogatechsolutions.com&sz=32"
+              alt=""
+              className="w-5 h-5 rounded"
+            />
+            NogaTech IT Solutions
+          </a>
+          <span className="text-slate-600">·</span>
+          <a
+            href="https://www.uptechunt.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-slate-400 hover:text-[var(--color-accent-light)] transition-colors font-medium"
+          >
+            <img
+              src="https://www.google.com/s2/favicons?domain=uptechunt.com&sz=32"
+              alt=""
+              className="w-5 h-5 rounded"
+            />
+            UpTecHunt
+          </a>
+        </p>
+        <p className="text-slate-500 text-sm">
+          © {new Date().getFullYear()} Manmohan Yadav. Software Engineer & Founder, UpTecHunt.
+        </p>
       </div>
     </footer>
   );
