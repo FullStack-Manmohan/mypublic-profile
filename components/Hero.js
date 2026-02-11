@@ -2,65 +2,81 @@
 import { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Poppins, Inter } from "next/font/google";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-const poppins = Poppins({ subsets: ["latin"], weight: ["400", "700"] });
-const inter = Inter({ subsets: ["latin"], weight: ["400", "500"] });
-
 export default function Hero() {
   useEffect(() => {
-    AOS.init({
-      duration: 1000, 
-      once: false, 
-    });
+    AOS.init({ duration: 800, once: true });
   }, []);
 
   return (
     <section
       id="hero"
-      className="relative w-full min-h-[70vh] flex items-center justify-center bg-gradient-to-br from-[#1E3A8A] via-[#1E3A8A] to-[#10B981] py-16"
+      className="relative w-full min-h-[85vh] flex items-center justify-center overflow-hidden bg-[var(--color-primary)]"
     >
-      <div className="max-w-7xl mx-auto w-full flex flex-col md:flex-row items-center justify-between px-6 gap-12">
-        {/* Left: Text */}
-        <div className="flex-1 flex flex-col items-start" data-aos="fade-up">
-          <h1 className="text-4xl md:text-5xl font-bold text-[#F3F4F6] mb-4 font-poppins drop-shadow">
-            Hi, I’m Manmohan — <br className="hidden md:block" />
-            <span className="text-[#10B981]">Full-stack Developer</span> & CEO.
+      {/* Subtle gradient mesh background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#0f172a] via-[#1e293b] to-[#0f172a] opacity-100" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_0%,rgba(13,148,136,0.15)_0%,transparent_50%)]" />
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[var(--color-surface)] to-transparent" />
+
+      <div className="relative z-10 max-w-6xl mx-auto w-full flex flex-col lg:flex-row items-center justify-between px-6 py-20 gap-16">
+        {/* Left: Copy */}
+        <div className="flex-1 flex flex-col items-start text-white">
+          <span
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--color-accent)]/20 text-[var(--color-accent-light)] text-sm font-medium mb-6 border border-[var(--color-accent)]/30"
+            data-aos="fade-down"
+          >
+            <span className="w-2 h-2 rounded-full bg-[var(--color-accent-light)] animate-pulse" />
+            Open to work & select projects
+          </span>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-4 leading-tight" data-aos="fade-up">
+            Hi, I&apos;m{" "}
+            <span className="text-[var(--color-accent-light)]">Manmohan Yadav</span>
           </h1>
-          <p className="text-lg md:text-xl text-[#F3F4F6] mb-6 font-inter">
-            Building scalable, reliable web apps and SaaS platforms.
+          <p className="text-xl md:text-2xl text-slate-300 mb-2 font-medium" data-aos="fade-up" data-aos-delay="100">
+            Software Engineer @ RCUH (UHERO / University of Hawai&apos;i)
           </p>
-          <div className="flex gap-4 mt-2" data-aos="zoom-in" data-aos-delay="200">
+          <p className="text-lg text-slate-400 mb-6" data-aos="fade-up" data-aos-delay="150">
+            Full-Stack (React • Next.js • Node.js) • HIPAA-Compliant Dashboards & Web Apps • Founder, UpTecHunt
+          </p>
+          <p className="text-slate-500 text-sm mb-8 flex items-center gap-2" data-aos="fade-up" data-aos-delay="200">
+            <span>📍</span> Honolulu Metropolitan Area
+          </p>
+          <div className="flex flex-wrap gap-4" data-aos="fade-up" data-aos-delay="250">
             <Link
               href="/contact"
-              className="bg-[#10B981] text-[#111827] px-6 py-3 rounded-lg shadow-md hover:scale-105 hover:shadow-lg transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-[#1E3A8A]"
+              className="inline-flex items-center gap-2 bg-[var(--color-accent)] text-white px-6 py-3 rounded-[var(--radius-button)] font-semibold shadow-lg hover:bg-[var(--color-accent-light)] hover:shadow-[var(--color-accent)]/25 transition-all duration-200 hover-lift"
             >
-              Hire Me
+              Hire Me / Get in Touch
             </Link>
             <Link
               href="/projects"
-              className="bg-[#10B981] text-[#F3F4F6] px-6 py-3 rounded-lg shadow-md hover:scale-105 hover:shadow-lg transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-[#1E3A8A]"
+              className="inline-flex items-center gap-2 bg-white/10 text-white border border-white/20 px-6 py-3 rounded-[var(--radius-button)] font-semibold hover:bg-white/20 transition-all duration-200"
             >
               View Projects
             </Link>
+            <a
+              href="https://www.linkedin.com/in/manmohan-yadav---"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-slate-400 hover:text-[var(--color-accent-light)] transition-colors"
+            >
+              LinkedIn →
+            </a>
           </div>
         </div>
 
-        {/* Right: Image */}
-        <div
-          className="flex-1 flex justify-center md:justify-end"
-          data-aos="fade-left"
-          data-aos-duration="1200"
-        >
-          <div className="relative w-56 h-56 md:w-72 md:h-72 rounded-full overflow-hidden shadow-xl border-4 border-[#10B981] bg-[#F3F4F6]">
+        {/* Right: Photo */}
+        <div className="flex-1 flex justify-center lg:justify-end" data-aos="fade-left" data-aos-duration="800">
+          <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-2xl overflow-hidden shadow-2xl ring-2 ring-[var(--color-accent)]/30 bg-slate-800">
             <Image
               src="/images/ceo.jpg"
-              alt="Manmohan Y. Photo"
+              alt="Manmohan Yadav - Software Engineer"
               fill
               className="object-cover"
               priority
+              sizes="(max-width: 768px) 256px, 320px"
             />
           </div>
         </div>
@@ -68,4 +84,3 @@ export default function Hero() {
     </section>
   );
 }
-

@@ -1,123 +1,92 @@
-"use client"; 
+"use client";
+
 import { useEffect } from "react";
+import Link from "next/link";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import AOS from "aos";
 import "aos/dist/aos.css";
-
-const allProjects = [
-  {
-    name: "AlohaCoin",
-    image: "/images/aloha-coin.png",
-    tech: ["Solidity", "Typescript", "Web3.js", "javaScript"],
-    description:
-      "A blockchain-based cryptocurrency project built with smart contracts, ensuring secure transactions and decentralized finance features.",
-    caseStudy: "https://github.com/FullStack-Manmohan/AlohaCoin-smart-contract",
-  },
-  {
-    name: "NoteHunt",
-    image: "/images/note-hunt.png",
-    tech: ["React", "JavaScript", "SCSS"],
-    description:
-      "A modern note-taking app designed with a clean UI, offering quick search, categorization, and cloud sync features.",
-    caseStudy: "https://github.com/FullStack-Manmohan/Note-Hunt",
-  },
-  {
-    name: "UpTecHunt",
-    image: "/images/uptechunt.png",
-    tech: ["Next.js", "Node.js", "MongoDB", "Stripe"],
-    description:
-      "A freelancing platform where clients can post projects and hire skilled freelancers across multiple categories with secure payments and bidding system.",
-    caseStudy: "https://www.uptechunt.com/",
-  },
-];
+import Image from "next/image";
+import { featuredProjects } from "../lib/projects";
 
 export default function Projects() {
   useEffect(() => {
-    AOS.init({
-      duration: 1000, 
-      once: false, 
-    });
+    AOS.init({ duration: 800, once: true });
   }, []);
 
   return (
-    <section id="projects" className="py-20 px-6 bg-white">
-      <div className="max-w-7xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-[#1E3A8A] mb-4 font-poppins text-center">
-          Top Projects
+    <section id="projects" className="py-20 px-6 bg-[var(--color-surface)]">
+      <div className="max-w-6xl mx-auto">
+        <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-primary)] mb-2 text-center" data-aos="fade-up">
+          Featured Work
         </h2>
-        <p className="text-center text-gray-600 mb-10 max-w-2xl mx-auto">
-          Here are some of my featured projects showcasing a mix of web, blockchain, and mobile solutions. 
-          Each project reflects my focus on creating functional, scalable, and user-friendly digital experiences.
+        <p className="text-center text-[var(--color-muted)] mb-4 max-w-2xl mx-auto" data-aos="fade-up">
+          Recent projects — production-grade web apps, dashboards, and platforms. Live links below.
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {allProjects.map((project) => (
-            <div
+        <p className="text-center mb-12" data-aos="fade-up">
+          <a
+            href="https://github.com/FullStack-Manmohan"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-[var(--color-primary-light)] font-semibold hover:text-[var(--color-accent)] transition-colors"
+          >
+            More on GitHub
+            <FaExternalLinkAlt className="text-sm" />
+          </a>
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {featuredProjects.map((project) => (
+            <article
               key={project.name}
               data-aos="fade-up"
-              data-aos-delay="100"
-              data-aos-duration="800"
-              className="bg-[#F3F4F6] rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-200 flex flex-col"
+              className="bg-[var(--color-surface-elevated)] rounded-[var(--radius-card)] shadow-[var(--shadow-card)] border border-[var(--color-border)] overflow-hidden hover-lift flex flex-col"
             >
-              {/* Project Image */}
-              <div className="relative w-full h-48 rounded-t-2xl overflow-hidden">
-                <img
+              <div className="relative w-full h-52 bg-slate-200">
+                <Image
                   src={project.image}
                   alt={project.name}
-                  className="object-cover w-full h-full"
-                  loading="lazy"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>
-
-              {/* Project Info */}
               <div className="p-6 flex flex-col flex-1">
-                <h3 className="text-xl font-semibold text-[#111827] mb-2">
-                  {project.name}
-                </h3>
-
+                <h3 className="text-xl font-bold text-[var(--color-primary)] mb-1">{project.name}</h3>
+                <p className="text-sm text-[var(--color-accent)] font-medium mb-3">{project.tagline}</p>
                 <div className="flex flex-wrap gap-2 mb-3">
                   {project.tech.map((tech) => (
                     <span
                       key={tech}
-                      className="bg-[#10B981]/10 text-[#10B981] text-xs font-medium px-2 py-1 rounded"
+                      className="bg-[var(--color-accent)]/10 text-[var(--color-accent)] text-xs font-medium px-2 py-1 rounded"
                     >
                       {tech}
                     </span>
                   ))}
                 </div>
-
-                <p className="text-[#374151] mb-4 flex-1">{project.description}</p>
-
-                {/* Case Study Link */}
-                <a
-                  href={project.caseStudy}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-auto inline-flex items-center gap-2 text-[#1E3A8A] font-medium hover:text-[#10B981] transition-colors duration-200"
-                >
-                  View  <FaExternalLinkAlt className="inline" />
-                </a>
+                <p className="text-[var(--color-muted)] text-sm mb-4 flex-1">{project.description}</p>
+                <div className="flex flex-wrap gap-4">
+                  {project.caseStudySlug && (
+                    <Link
+                      href={`/case-studies/${project.caseStudySlug}`}
+                      className="inline-flex items-center gap-2 text-[var(--color-primary)] font-semibold hover:text-[var(--color-accent)] transition-colors"
+                    >
+                      Read case study
+                    </Link>
+                  )}
+                  <a
+                    href={project.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-[var(--color-primary-light)] font-semibold hover:text-[var(--color-accent)] transition-colors"
+                  >
+                    View project
+                    <FaExternalLinkAlt className="text-sm" />
+                  </a>
+                </div>
               </div>
-            </div>
+            </article>
           ))}
         </div>
       </div>
-
-      {/* Animation */}
-      <style jsx>{`
-        section {
-          animation: fadeInUp 1.1s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(40px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
     </section>
   );
 }

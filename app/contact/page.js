@@ -57,31 +57,23 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#F3F4F6]">
-      {/* Main Content */}
-      
+    <div className="flex flex-col min-h-screen bg-[var(--color-surface)]">
       <main className="flex-grow py-16 px-6 text-center">
-        <h1
-          className="text-4xl font-bold text-[#1E3A8A] mb-8 font-poppins"
-          data-aos="fade-up"
-        >
+        <h1 className="text-4xl font-bold text-[var(--color-primary)] mb-4" data-aos="fade-up">
           Contact
         </h1>
-        <p
-          className="mb-8 text-lg font-inter text-[#111827]"
-          data-aos="fade-up"
-        >
-          Interested in working together or have a question?
-          <br />
-          Reach out via the form or the info below.
+        <p className="mb-4 text-lg text-[var(--color-primary)]/90 max-w-2xl mx-auto" data-aos="fade-up">
+          Interested in working together or have a question? Reach out via the form or the info below.
+        </p>
+        <p className="mb-4 text-[var(--color-muted)] italic max-w-2xl mx-auto" data-aos="fade-up">
+          If you&apos;re looking for a senior, hands-on engineer who can own delivery (architecture → build → launch → iterate), message me with your goal, timeline, and current stack.
+        </p>
+        <p className="mb-10 text-[var(--color-primary)] font-medium max-w-2xl mx-auto" data-aos="fade-up">
+          I&apos;m available for long-term projects and can commit up to 40+ hours per week. Let&apos;s discuss how I can help with your next project.
         </p>
 
-        {/* Contact Form */}
-        <div
-          className="mt-16 max-w-2xl mx-auto bg-white shadow-lg rounded-xl p-8"
-          data-aos="fade-up"
-        >
-          <h2 className="text-2xl font-bold text-[#1E3A8A] mb-4">
+        <div className="mt-12 max-w-2xl mx-auto bg-[var(--color-surface-elevated)] shadow-[var(--shadow-card)] rounded-[var(--radius-card)] p-8 border border-[var(--color-border)]" data-aos="fade-up">
+          <h2 className="text-2xl font-bold text-[var(--color-primary)] mb-4">
             Send a Message
           </h2>
 
@@ -94,7 +86,7 @@ export default function ContactPage() {
                 {...form.register("fullName")}
                 type="text"
                 placeholder="Your Name"
-                className="w-full border border-gray-300 rounded-lg px-4 py-2"
+                className="w-full border border-[var(--color-border)] rounded-lg px-4 py-2.5 bg-[var(--color-surface)] text-[var(--color-primary)]"
               />
               <ErrorMessage
                 errors={form.formState.errors}
@@ -110,7 +102,7 @@ export default function ContactPage() {
                 {...form.register("email")}
                 type="email"
                 placeholder="Your Email"
-                className="w-full border border-gray-300 rounded-lg px-4 py-2"
+                className="w-full border border-[var(--color-border)] rounded-lg px-4 py-2.5 bg-[var(--color-surface)] text-[var(--color-primary)]"
               />
               <ErrorMessage
                 errors={form.formState.errors}
@@ -126,7 +118,7 @@ export default function ContactPage() {
                 {...form.register("subject")}
                 type="text"
                 placeholder="Subject"
-                className="w-full border border-gray-300 rounded-lg px-4 py-2"
+                className="w-full border border-[var(--color-border)] rounded-lg px-4 py-2.5 bg-[var(--color-surface)] text-[var(--color-primary)]"
               />
               <ErrorMessage
                 errors={form.formState.errors}
@@ -142,7 +134,7 @@ export default function ContactPage() {
                 {...form.register("message")}
                 rows="5"
                 placeholder="Your Message"
-                className="w-full border border-gray-300 rounded-lg px-4 py-2"
+                className="w-full border border-[var(--color-border)] rounded-lg px-4 py-2.5 bg-[var(--color-surface)] text-[var(--color-primary)]"
               ></textarea>
               <ErrorMessage
                 errors={form.formState.errors}
@@ -156,7 +148,7 @@ export default function ContactPage() {
             <button
               type="submit"
               disabled={form.formState.isSubmitting}
-              className="w-full bg-[#1E3A8A] text-white py-2 px-6 rounded-lg font-semibold hover:bg-[#0f2c64] transition-colors flex justify-center items-center gap-2"
+              className="w-full bg-[var(--color-primary)] text-white py-3 px-6 rounded-lg font-semibold hover:bg-[var(--color-primary-light)] transition-colors flex justify-center items-center gap-2"
             >
               {form.formState.isSubmitting && (
                 <Spinner size="sm" animation="border" role="status">
@@ -171,12 +163,12 @@ export default function ContactPage() {
         {/* Call to Action */}
         <div className="mt-16">
           <h2
-            className="text-2xl font-bold text-[#1E3A8A] mb-2"
+            className="text-2xl font-bold text-[var(--color-primary)] mb-2"
             data-aos="fade-up"
           >
             Let’s Build Something Great
           </h2>
-          <p className="text-[#111827] text-lg" data-aos="fade-up">
+          <p className="text-[var(--color-muted)] text-lg" data-aos="fade-up">
             Whether you have a new idea, need a technical partner, or want to
             scale your business, I’m here to help you succeed.
           </p>
@@ -184,10 +176,7 @@ export default function ContactPage() {
       </main>
   
       {/* Map Embed */}
-      <div
-        className="m-9 rounded-xl overflow-hidden shadow-lg"
-        data-aos="fade-up"
-      >
+      <div className="m-9 rounded-xl overflow-hidden shadow-[var(--shadow-card)] border border-[var(--color-border)]" data-aos="fade-up">
         <iframe
           title="Honolulu Map"
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d921.3906648226896!2d-157.85204733154774!3d21.294742268118046!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7c006e09730af385%3A0x5f6888293ad32dac!2sHub%20Coworking%20Hawai%E2%80%98i!5e0!3m2!1sen!2sus!4v1758228747242!5m2!1sen!2sus"

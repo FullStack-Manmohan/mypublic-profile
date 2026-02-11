@@ -1,100 +1,59 @@
 "use client";
 
-import { FaReact, FaServer, FaCloud, FaMobileAlt, FaChartBar, FaRocket } from "react-icons/fa";
+import { FaLaptopCode, FaDatabase, FaGlobe, FaCogs } from "react-icons/fa";
 import { useEffect } from "react";
 import AOS from "aos";
-import "aos/dist/aos.css";  
+import "aos/dist/aos.css";
+import { servicesLinkedIn, whatIBuild } from "../lib/profile-data";
 
-const services = [
-  {
-    icon: <FaReact className="text-3xl text-[#10B981]" />,
-    title: "Frontend Development",
-    description: "Modern, responsive UIs using React, Next.js, Tailwind CSS, and Bootstrap.",
-    tech: "React, Next.js, Tailwind CSS, Bootstrap",
-  },
-  {
-    icon: <FaServer className="text-3xl text-[#10B981]" />,
-    title: "Backend APIs",
-    description: "Robust REST & GraphQL APIs with Node.js, Express, and Nest.js.",
-    tech: "Node.js, Express, Nest.js",
-  },
-  {
-    icon: <FaChartBar className="text-3xl text-[#10B981]" />,
-    title: "SaaS & Dashboards",
-    description: "Custom SaaS platforms, admin dashboards, and internal tools.",
-    tech: "React, Next.js, Node.js",
-  },
-  {
-    icon: <FaMobileAlt className="text-3xl text-[#10B981]" />,
-    title: "Mobile Apps",
-    description: "Cross-platform mobile apps with React Native and Expo.",
-    tech: "React Native, Expo",
-  },
-  {
-    icon: <FaCloud className="text-3xl text-[#10B981]" />,
-    title: "Cloud Deployment",
-    description: "Seamless deployment & scaling on AWS, Vercel, and DigitalOcean.",
-    tech: "AWS, Vercel, DigitalOcean",
-  },
-  {
-    icon: <FaRocket className="text-3xl text-[#10B981]" />,
-    title: "Product Launch",
-    description: "End-to-end support from MVP to production launch.",
-    tech: "Full-stack, DevOps",
-  },
-];
+const iconMap = {
+  "IT Consulting": <FaCogs className="text-3xl text-[var(--color-accent)]" />,
+  "Application Development": <FaLaptopCode className="text-3xl text-[var(--color-accent)]" />,
+  "Database Development": <FaDatabase className="text-3xl text-[var(--color-accent)]" />,
+  "Web Development": <FaGlobe className="text-3xl text-[var(--color-accent)]" />,
+};
 
 export default function Services() {
   useEffect(() => {
-        AOS.init({
-          duration: 1000, 
-          once: false, 
-        });
-      }, []);
-    
+    AOS.init({ duration: 800, once: true });
+  }, []);
+
   return (
-    <section id="services" className="py-20 px-6 bg-white">
-      <div className="max-w-7xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-[#1E3A8A] mb-4 font-poppins text-center">
-          What I Do
+    <section id="services" className="py-20 px-6 bg-[var(--color-surface-elevated)]">
+      <div className="max-w-6xl mx-auto">
+        <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-primary)] mb-2 text-center" data-aos="fade-up">
+          Services
         </h2>
-        <p className="text-center text-gray-600 mb-10 max-w-2xl mx-auto">
-          I create digital solutions that are functional, user-friendly, and visually engaging. 
-          Each service is focused on delivering high-quality results to bring your ideas to life.
+        <p className="text-center text-[var(--color-muted)] mb-12 max-w-2xl mx-auto" data-aos="fade-up">
+          What I offer — from consulting to full-stack delivery. Built for teams who want ownership from architecture through launch.
         </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service, idx) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {servicesLinkedIn.map((service) => (
             <div
               key={service.title}
               data-aos="fade-up"
-              className="bg-[#F3F4F6] rounded-2xl shadow-md p-8 flex flex-col items-start gap-4 border-l-4 border-[#10B981] hover:scale-105 hover:shadow-xl transition-all duration-200 group"
+              className="bg-[var(--color-surface)] rounded-[var(--radius-card)] shadow-[var(--shadow-card)] p-6 flex flex-col gap-4 border border-[var(--color-border)] hover-lift border-l-4 border-l-[var(--color-accent)]"
             >
-              <div className="mb-2">{service.icon}</div>
-              <h3 className="text-xl font-semibold text-[#1E3A8A] mb-1 group-hover:text-[#10B981] transition-colors">
+              <div className="mb-2">{iconMap[service.title]}</div>
+              <h3 className="text-xl font-semibold text-[var(--color-primary)]">
                 {service.title}
               </h3>
-              <p className="text-[#374151] mb-2">{service.description}</p>
-              <span className="text-sm text-[#1E3A8A] font-medium">{service.tech}</span>
+              <p className="text-[var(--color-muted)] text-sm">{service.description}</p>
             </div>
           ))}
         </div>
+        <div className="mt-12 p-6 rounded-[var(--radius-card)] bg-[var(--color-surface)] border border-[var(--color-border)]" data-aos="fade-up">
+          <h3 className="text-lg font-semibold text-[var(--color-primary)] mb-4">What I build (most requested)</h3>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            {whatIBuild.map((item, i) => (
+              <li key={i} className="flex items-center gap-2 text-[var(--color-muted)]">
+                <span className="text-[var(--color-accent)]">•</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
-      {/* Animation */}
-      <style jsx>{`
-        section {
-          animation: fadeInUp 1.1s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(40px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
     </section>
   );
 }

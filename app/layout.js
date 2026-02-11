@@ -6,14 +6,19 @@ const poppins = Poppins({ subsets: ["latin"], weight: ["400", "700"] });
 const inter = Inter({ subsets: ["latin"], weight: ["400", "500"] });
 
 export const metadata = {
-  title: "Full-Stack Developer | React, Next.js, Node.js, MongoDB | Manmohan Yadav",
-  description: "I’m a full-stack developer specializing in React, Next.js, Node.js, and modern technologies. I build scalable web apps, mobile apps, and digital solutions that deliver results.",
+  title: "Manmohan Yadav | Software Engineer @ RCUH | Full-Stack React • Next.js • Node.js | Founder UpTecHunt",
+  description: "Software Engineer at RCUH (UHERO / University of Hawai'i). Full-stack web systems, HIPAA-compliant dashboards, production-grade apps. Founder, UpTecHunt. Honolulu. Open to select projects and leads.",
+  openGraph: {
+    title: "Manmohan Yadav — Software Engineer & Full-Stack Developer",
+    description: "Secure, production-grade web systems & dashboards. React, Next.js, Node.js. HIPAA-compliant workflows. Honolulu.",
+    url: "https://www.linkedin.com/in/manmohan-yadav---",
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${poppins.className} ${inter.className}`}>
-      <body className="bg-[#F3F4F6] min-h-screen antialiased flex flex-col">
+      <body className="bg-[var(--color-surface)] min-h-screen antialiased flex flex-col">
         <LayoutWrapper>{children}</LayoutWrapper>
       </body>
     </html>
