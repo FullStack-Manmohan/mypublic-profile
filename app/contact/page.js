@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import emailjs from "@emailjs/browser";
@@ -9,50 +9,104 @@ import { ErrorMessage } from "@hookform/error-message";
 import toast from "react-hot-toast";
 import { Spinner } from "react-bootstrap";
 import { z } from "zod";
+import { FaCheckCircle } from "react-icons/fa";
+
+// Stricter email: valid format, reasonable length, no disposable domains
+const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*\.[a-zA-Z]{2,}$/;
+const DISPOSABLE_DOMAINS = [
+  "tempmail", "throwaway", "guerrillamail", "10minutemail", "mailinator",
+  "yopmail", "fakeinbox", "trashmail", "temp-mail", "getnada", "sharklasers",
+  "mailnesia", "dispostable", "tempail", "mohmal", "emailondeck", "tempinbox",
+];
+const isDisposableEmail = (email) => {
+  const domain = email.split("@")[1]?.toLowerCase() || "";
+  return DISPOSABLE_DOMAINS.some((d) => domain.includes(d));
+};
+
+// Phone: if provided, must have at least 10 digits (international allowed)
+const phoneDigits = (s) => (s || "").replace(/\D/g, "");
+const validPhone = (s) => (s || "").trim() !== "" && phoneDigits(s).length >= 10;
 
 const formSchema = z.object({
-  fullName: z.string().min(1, "Name is required"),
-  email: z.string().min(1, "Email is required").email("Invalid email"),
-  subject: z.string().min(1, "Subject is required"),
-  message: z.string().min(1, "Message is required"),
+  fullName: z
+    .string()
+    .min(1, "Name is required")
+    .max(100, "Name is too long")
+    .refine((v) => !/^\s+$/.test(v), "Name is required"),
+  email: z
+    .string()
+    .min(1, "Email is required")
+    .max(254, "Email is too long")
+    .email("Please enter a valid email address")
+    .refine((v) => EMAIL_REGEX.test(v), "Please enter a valid email address")
+    .refine((v) => !isDisposableEmail(v), "Please use a permanent email address"),
+  phone: z
+    .string()
+    .min(1, "Phone number is required")
+    .max(20, "Phone number is too long")
+    .refine((v) => validPhone(v), "Please enter a valid phone number (at least 10 digits)"),
+  subject: z
+    .string()
+    .min(1, "Subject is required")
+    .max(200, "Subject is too long"),
+  message: z
+    .string()
+    .min(10, "Message must be at least 10 characters")
+    .max(5000, "Message is too long"),
 });
 
 export default function ContactPage() {
+  const [showThankYou, setShowThankYou] = useState(false);
 
   useEffect(() => {
-    AOS.init({
-      duration: 1000,
-      once: false,
-    });
+    AOS.init({ duration: 1000, once: false });
   }, []);
-
 
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-  subject: "",
-}
+      fullName: "",
+      email: "",
+      phone: "",
+      subject: "",
+      message: "",
+    },
   });
 
-  const onSubmit = async (data) => {
-    try {
-      await emailjs.send(
-        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
-        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
-        {
-          name: data.fullName,
-          email: `${data.email} - Source:from my Portfolio`,
-          subject: data.subject,
-          message: data.message,
-        },
-        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
-      );
-      toast.success("Thank you for contacting me! I will get back to you soon.");
-      form.reset();
+  const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+  const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+  const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+  const isEmailJsConfigured = serviceId && templateId && publicKey;
 
+  const onSubmit = async (data) => {
+    if (!isEmailJsConfigured) {
+      const body = [
+        `From: ${data.fullName} <${data.email}>`,
+        `Phone: ${data.phone}`,
+        "",
+        data.message,
+      ].join("\n");
+      const mailto = `mailto:fullstack.manmohan@gmail.com?subject=${encodeURIComponent(data.subject)}&body=${encodeURIComponent(body)}`;
+      window.location.href = mailto;
+      toast.success("Opening your email client. If it didn't open, email fullstack.manmohan@gmail.com directly.");
+      form.reset();
+      return;
+    }
+    try {
+      await emailjs.send(serviceId, templateId, {
+        name: data.fullName,
+        email: `${data.email} - Source: from my Portfolio`,
+        phone: data.phone,
+        subject: data.subject,
+        message: data.message,
+      }, publicKey);
+      form.reset();
+      setShowThankYou(true);
+      toast.success("Message sent! We'll get back to you within a few hours.");
     } catch (error) {
-      console.error(error.text || error);
-      toast.error("Something went wrong. Please try again later.");
+      const message = error?.text || error?.message || String(error);
+      console.error("Contact form error:", message, error);
+      toast.error("Could not send message. Please email fullstack.manmohan@gmail.com directly.");
     }
   };
 
@@ -76,6 +130,11 @@ export default function ContactPage() {
           <h2 className="text-2xl font-bold text-[var(--color-primary)] mb-4">
             Send a Message
           </h2>
+          {!isEmailJsConfigured && (
+            <p className="text-sm text-[var(--color-muted)] mb-4">
+              Submitting will open your email client to send a message directly.
+            </p>
+          )}
 
           <form
             className="space-y-4"
@@ -110,6 +169,15 @@ export default function ContactPage() {
                 render={({ message }) => (
                   <p className="text-red-500 text-sm">{message}</p>
                 )}
+              />
+            </div>
+
+            <div>
+              <input
+                {...form.register("phone")}
+                type="tel"
+                placeholder="Phone (for callback within a few hours)"
+                className="w-full border border-[var(--color-border)] rounded-lg px-4 py-2.5 bg-[var(--color-surface)] text-[var(--color-primary)]"
               />
             </div>
 
@@ -159,6 +227,39 @@ export default function ContactPage() {
             </button>
           </form>
         </div>
+
+        {/* Thank you modal */}
+        {showThankYou && (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50"
+            onClick={() => setShowThankYou(false)}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="thank-you-title"
+          >
+            <div
+              className="bg-[var(--color-surface-elevated)] rounded-[var(--radius-card)] shadow-xl max-w-md w-full p-8 text-center border border-[var(--color-border)]"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex justify-center mb-4">
+                <FaCheckCircle className="text-5xl text-[var(--color-accent)]" />
+              </div>
+              <h2 id="thank-you-title" className="text-2xl font-bold text-[var(--color-primary)] mb-2">
+                Thank you!
+              </h2>
+              <p className="text-[var(--color-muted)] mb-6">
+                Your message was sent successfully. I&apos;ll get back to you within a few hours.
+              </p>
+              <button
+                type="button"
+                onClick={() => setShowThankYou(false)}
+                className="px-6 py-2.5 bg-[var(--color-primary)] text-white font-semibold rounded-lg hover:bg-[var(--color-primary-light)] transition-colors"
+              >
+                OK
+              </button>
+            </div>
+          </div>
+        )}
        
         {/* Call to Action */}
         <div className="mt-16">

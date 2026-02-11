@@ -20,15 +20,13 @@ export default function Header() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
           <Image
-            src="/images/logo.y.jpg"
-            alt="Manmohan Y. Logo"
-            width={60}
-            height={60}
-            className=""
+            src="/images/logo.png"
+            alt="Manmohan Yadav"
+            width={140}
+            height={40}
+            className="h-9 w-auto object-contain"
             priority
           />
-          {/* <span className="text-[#10B981] font-bold text-2xl tracking-tight">Manmohan Y.</span>
-          <span className="hidden sm:inline text-white font-semibold text-lg">| Full-stack Dev & CEO</span> */}
         </Link>
         {/* Desktop Nav */}
         <ul className="hidden md:flex gap-6 items-center">
