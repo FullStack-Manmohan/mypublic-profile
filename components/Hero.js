@@ -57,7 +57,7 @@ export default function Hero() {
               View Projects
             </Link>
             <a
-              href="https://www.linkedin.com/in/manmohan-yadav---"
+              href="https://www.linkedin.com/in/manmohan-yadav"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-slate-400 hover:text-[var(--color-accent-light)] transition-colors"

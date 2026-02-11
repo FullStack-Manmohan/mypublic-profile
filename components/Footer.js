@@ -62,7 +62,7 @@ export default function Footer() {
               <FaGithub />
             </a>
             <a
-              href="https://www.linkedin.com/in/manmohan-yadav---"
+              href="https://www.linkedin.com/in/manmohan-yadav"
               target="_blank"
               rel="noopener noreferrer"
               className="text-slate-400 hover:text-[var(--color-accent-light)] transition-transform hover:scale-110"
