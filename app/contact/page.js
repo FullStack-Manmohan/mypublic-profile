@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import emailjs from "@emailjs/browser";
@@ -57,6 +57,7 @@ const formSchema = z.object({
 
 export default function ContactPage() {
   const [showThankYou, setShowThankYou] = useState(false);
+  const submitGuardRef = useRef(false);
 
   useEffect(() => {
     AOS.init({ duration: 1000, once: false });
@@ -79,20 +80,22 @@ export default function ContactPage() {
   const isEmailJsConfigured = serviceId && templateId && publicKey;
 
   const onSubmit = async (data) => {
-    if (!isEmailJsConfigured) {
-      const body = [
-        `From: ${data.fullName} <${data.email}>`,
-        `Phone: ${data.phone}`,
-        "",
-        data.message,
-      ].join("\n");
-      const mailto = `mailto:fullstack.manmohan@gmail.com?subject=${encodeURIComponent(data.subject)}&body=${encodeURIComponent(body)}`;
-      window.location.href = mailto;
-      toast.success("Opening your email client. If it didn't open, email fullstack.manmohan@gmail.com directly.");
-      form.reset();
-      return;
-    }
+    if (submitGuardRef.current) return;
+    submitGuardRef.current = true;
     try {
+      if (!isEmailJsConfigured) {
+        const body = [
+          `From: ${data.fullName} <${data.email}>`,
+          `Phone: ${data.phone}`,
+          "",
+          data.message,
+        ].join("\n");
+        const mailto = `mailto:fullstack.manmohan@gmail.com?subject=${encodeURIComponent(data.subject)}&body=${encodeURIComponent(body)}`;
+        window.location.href = mailto;
+        toast.success("Opening your email client. If it didn't open, email fullstack.manmohan@gmail.com directly.");
+        form.reset();
+        return;
+      }
       await emailjs.send(serviceId, templateId, {
         name: data.fullName,
         email: `${data.email} - Source: from my Portfolio`,
@@ -107,6 +110,8 @@ export default function ContactPage() {
       const message = error?.text || error?.message || String(error);
       console.error("Contact form error:", message, error);
       toast.error("Could not send message. Please email fullstack.manmohan@gmail.com directly.");
+    } finally {
+      submitGuardRef.current = false;
     }
   };
 

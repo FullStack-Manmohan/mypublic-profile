@@ -17,22 +17,26 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-30 bg-[var(--color-primary)]/95 backdrop-blur-md shadow-lg border-b border-white/5">
       <nav className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-2">
-          <Image
-            src="/images/logo.png"
-            alt="Manmohan Yadav"
-            width={140}
-            height={40}
-            className="h-9 w-auto object-contain"
-            priority
-          />
+        {/* Logo — centered wrapper (absolute) + inner scaled wrapper so visual scaling centers correctly */}
+        <Link href="/" className="flex items-center shrink-0 relative overflow-visible w-[44px] md:w-[56px] h-full">
+          <div className="absolute left-0 md:-left-1 lg:-left-2 will-change-transform" style={{ top: '50%', transform: 'translateY(calc(-50% + 3px))' }}>
+            <div className="transform origin-center scale-[3] md:scale-[4] lg:scale-[5]">
+              <Image
+                src="/images/logo.png"
+                alt="Manmohan Yadav"
+                width={512}
+                height={512}
+                className="w-auto block"
+                priority
+              />
+            </div>
+          </div>
         </Link>
         {/* Desktop Nav */}
-        <ul className="hidden md:flex gap-6 items-center">
+        <ul className="hidden md:flex gap-6 items-center text-base">
           <Link
             href="/contact"
-            className="text-[var(--color-accent-light)] font-semibold text-sm px-3 py-1.5 rounded-full border border-[var(--color-accent)]/50 bg-[var(--color-accent)]/10 hover:bg-[var(--color-accent)]/20 transition-colors"
+            className="flex items-center text-[var(--color-accent-light)] font-semibold text-sm px-4 py-2 rounded-full border border-[var(--color-accent)]/50 bg-[var(--color-accent)]/10 hover:bg-[var(--color-accent)]/20 transition-colors"
           >
             Open to work
           </Link>
@@ -40,7 +44,7 @@ export default function Header() {
             <li key={link.name}>
               <Link
                 href={link.href}
-                className="text-slate-200 hover:text-[var(--color-accent-light)] transition-colors font-medium px-2 py-1"
+                className="text-slate-200 hover:text-[var(--color-accent-light)] transition-colors font-medium px-2 py-1 text-[15px] md:text-base"
               >
                 {link.name}
               </Link>
