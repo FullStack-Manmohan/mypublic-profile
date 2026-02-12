@@ -1,7 +1,12 @@
 "use client";
 
 import { FaCheckCircle, FaUserTie, FaAward } from "react-icons/fa";
-import { experience, topSkills, aboutSummary, whatIBuild } from "../../lib/profile-data";
+import {
+  experience,
+  topSkills,
+  aboutSummary,
+  whatIBuild,
+} from "../../lib/profile-data";
 import Link from "next/link";
 
 export default function AboutPage() {
@@ -24,11 +29,13 @@ export default function AboutPage() {
         <ol className="border-l-4 border-[var(--color-accent)] pl-6 space-y-8 mb-12">
           {experience.map((job, idx) => (
             <li key={idx} className="relative">
-              <span className="absolute -left-[29px] top-2 w-4 h-4 bg-[var(--color-accent)] rounded-full border-2 border-[var(--color-surface)]" />
+              <span className="absolute -left-[33px] top-2 w-4 h-4 bg-[var(--color-accent)] rounded-full border-2 border-[var(--color-surface)] outline-3 outline-[var(--color-surface)]" />
               <div className="mb-1 text-lg font-bold text-[var(--color-primary)]">
                 {job.period} — {job.role}, {job.company}
               </div>
-              <div className="text-sm text-[var(--color-muted)] mb-1">{job.type} · {job.location}</div>
+              <div className="text-sm text-[var(--color-muted)] mb-1">
+                {job.type} · {job.location}
+              </div>
               <p className="text-[var(--color-muted)]">{job.description}</p>
             </li>
           ))}
@@ -39,7 +46,10 @@ export default function AboutPage() {
         </h2>
         <ul className="space-y-2 mb-10">
           {whatIBuild.map((item, i) => (
-            <li key={i} className="flex items-center gap-2 text-[var(--color-primary)]/90">
+            <li
+              key={i}
+              className="flex items-center gap-2 text-[var(--color-primary)]/90"
+            >
               <FaCheckCircle className="text-[var(--color-accent)] flex-shrink-0" />
               {item}
             </li>

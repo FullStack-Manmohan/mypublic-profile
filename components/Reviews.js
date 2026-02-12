@@ -1,6 +1,14 @@
 "use client";
+
 import { FaStar } from "react-icons/fa";
 import { useEffect, useState } from "react";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -163,20 +171,21 @@ const reviews = [
   },
 ];
 
-
 export default function ReviewsPage() {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [api, setApi] = useState(null);
   const [expanded, setExpanded] = useState({});
-
-  const extendedReviews = [...reviews, ...reviews, ...reviews];
 
   useEffect(() => {
     AOS.init({ duration: 1000, once: false });
+  }, []);
+
+  useEffect(() => {
+    if (!api) return;
     const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % reviews.length);
+      api.scrollNext();
     }, 4000);
     return () => clearInterval(interval);
-  }, []);
+  }, [api]);
 
   const toggleExpand = (idx) => {
     setExpanded((prev) => ({ ...prev, [idx]: !prev[idx] }));
@@ -188,82 +197,85 @@ export default function ReviewsPage() {
   };
 
   return (
-    <main className="bg-gray-50 max-w-7xl mx-auto py-16 px-6 overflow-hidden">
+    <main className="bg-gray-50 w-full lg:max-w-7xl mx-auto py-12 sm:py-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
       <h1
-        className="text-4xl font-bold text-[#1E3A8A] mb-4 font-poppins text-center"
+        className="text-3xl sm:text-4xl font-bold text-[#1E3A8A] mb-4 font-poppins text-center"
         data-aos="fade-up"
       >
         Reviews & Testimonials
       </h1>
 
-      {/* Intro Paragraph */}
       <p
-        className="text-center text-gray-600 mb-10 max-w-2xl mx-auto"
+        className="text-center text-gray-600 mb-8 sm:mb-10 max-w-2xl mx-auto text-sm sm:text-base"
         data-aos="fade-up"
       >
-        Hear from clients and collaborators about their experience working with me. 
-        Each testimonial highlights the quality, reliability, and professionalism I bring to every project.
+        Hear from clients and collaborators about their experience working with
+        me. Each testimonial highlights the quality, reliability, and
+        professionalism I bring to every project.
       </p>
 
-      <div className="relative w-full overflow-hidden">
-        <div
-          className="flex transition-transform duration-700 ease-in-out"
-          style={{
-            transform: `translateX(-${currentIndex * (100 / 3)}%)`,
-          }}
+      <div className="relative w-full overflow-hidden pb-12 sm:pb-0">
+        <Carousel
+          setApi={setApi}
+          opts={{ align: "start", loop: true }}
+          className="w-full"
         >
-          {extendedReviews.map((review, idx) => {
-            const trimmed = trimText(review.text, idx);
-            return (
-              <div
-                key={idx}
-                className="w-1/3 flex-shrink-0 px-4 py-4"
-                style={{ flex: "0 0 33.3333%" }}
-              >
-                <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl border border-gray-100 p-6 h-full flex flex-col justify-between min-h-[320px] transform hover:-translate-y-1 transition-all duration-300">
-                  {/* Stars */}
-                  <div className="flex items-center mb-3">
-                    {Array.from({ length: review.rating }).map((_, i) => (
-                      <FaStar
-                        key={i}
-                        className="text-[#F59E0B] text-lg mr-1"
-                      />
-                    ))}
-                  </div>
+          <CarouselContent className="-ml-2 sm:-ml-3 lg:-ml-4">
+            {reviews.map((review, idx) => {
+              const trimmed = trimText(review.text, idx);
+              const stars = Math.round(Number(review.rating) || 0);
 
-                  {/* Review Text */}
-                  <p className="text-[#111827] text-base mb-4 font-inter">
-                    "{trimmed}"
-                    {!expanded[idx] && review.text.length > 140 && (
-                      <button
-                        onClick={() => toggleExpand(idx)}
-                        className="text-[#1E3A8A] font-semibold underline ml-1"
-                      >
-                        Show More
-                      </button>
-                    )}
-                    {expanded[idx] && review.text.length > 140 && (
-                      <button
-                        onClick={() => toggleExpand(idx)}
-                        className="text-[#1E3A8A] font-semibold underline ml-1"
-                      >
-                        Show Less
-                      </button>
-                    )}
-                  </p>
+              return (
+                <CarouselItem
+                  key={idx}
+                  className="pl-2 sm:pl-3 lg:pl-4 py-3 sm:py-4 basis-full sm:basis-1/2 lg:basis-1/3"
+                >
+                  <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl border border-gray-100 p-4 sm:p-6 h-full flex flex-col justify-between min-h-[280px] sm:min-h-[320px] transform hover:-translate-y-1 transition-all duration-300">
+                    <div className="flex items-center mb-3">
+                      {Array.from({ length: stars }).map((_, i) => (
+                        <FaStar
+                          key={i}
+                          className="text-[#F59E0B] text-lg mr-1"
+                        />
+                      ))}
+                    </div>
 
-                  {/* Client + Company */}
-                  <div>
-                    <p className="font-semibold text-[#1E3A8A]">{review.client}</p>
-                    {review.company && (
-                      <p className="text-sm text-gray-600">{review.company}</p>
-                    )}
+                    <p className="text-[#111827] text-sm sm:text-base mb-4 font-inter">
+                      "{trimmed}"
+                      {!expanded[idx] && review.text.length > 140 && (
+                        <button
+                          onClick={() => toggleExpand(idx)}
+                          className="text-[#1E3A8A] font-semibold underline ml-1"
+                        >
+                          Show More
+                        </button>
+                      )}
+                      {expanded[idx] && review.text.length > 140 && (
+                        <button
+                          onClick={() => toggleExpand(idx)}
+                          className="text-[#1E3A8A] font-semibold underline ml-1"
+                        >
+                          Show Less
+                        </button>
+                      )}
+                    </p>
+
+                    <div>
+                      <p className="font-semibold text-[#1E3A8A]">
+                        {review.client}
+                      </p>
+                      {review.company && (
+                        <p className="text-sm text-gray-600">
+                          {review.company}
+                        </p>
+                      )}
+                    </div>
                   </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
+                </CarouselItem>
+              );
+            })}
+          </CarouselContent>
+        </Carousel>
       </div>
     </main>
   );
