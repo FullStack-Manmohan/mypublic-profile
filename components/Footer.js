@@ -7,11 +7,13 @@ import { SiUpwork } from "react-icons/si";
 export default function Footer() {
   return (
     <footer className="bg-[var(--color-primary)] text-slate-200 py-16 px-6 border-t border-white/5">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left">
-        <div>
+      <div className="max-w-6xl mx-auto flex items-center justify-center lg:flex-row flex-col gap-12 text-center md:text-left">
+        <div className="lg:max-w-[400px]">
           <h3 className="text-xl font-bold text-white mb-3">Manmohan Yadav</h3>
           <p className="text-slate-400 leading-relaxed text-sm">
-            Software Engineer @ RCUH (UHERO / University of Hawai&apos;i). Full-stack web systems, HIPAA-compliant dashboards, and production-grade apps. Founder, UpTecHunt.
+            Software Engineer @ RCUH (UHERO / University of Hawai&apos;i).
+            Full-stack web systems, HIPAA-compliant dashboards, and
+            production-grade apps. Founder, UpTecHunt.
           </p>
           <p className="mt-3 text-[var(--color-accent-light)] font-medium text-sm">
             Open to select projects and leads — get in touch.
@@ -26,12 +28,18 @@ export default function Footer() {
           <ul className="space-y-2 text-slate-400 text-sm">
             <li>Honolulu Metropolitan Area, Hawaii, USA</li>
             <li>
-              <a href="mailto:fullstack.manmohan@gmail.com" className="hover:text-[var(--color-accent-light)] transition">
+              <a
+                href="mailto:fullstack.manmohan@gmail.com"
+                className="hover:text-[var(--color-accent-light)] transition"
+              >
                 fullstack.manmohan@gmail.com
               </a>
             </li>
             <li>
-              <a href="tel:+18086663188" className="hover:text-[var(--color-accent-light)] transition">
+              <a
+                href="tel:+18086663188"
+                className="hover:text-[var(--color-accent-light)] transition"
+              >
                 +1 (808) 666 3188
               </a>
             </li>
@@ -47,9 +55,30 @@ export default function Footer() {
         <div>
           <h3 className="text-xl font-semibold text-white mb-3">Connect</h3>
           <ul className="space-y-2 text-slate-400 text-sm">
-            <li><Link href="/about" className="hover:text-[var(--color-accent-light)] transition">About</Link></li>
-            <li><Link href="/projects" className="hover:text-[var(--color-accent-light)] transition">Projects</Link></li>
-            <li><Link href="/contact" className="hover:text-[var(--color-accent-light)] transition">Contact</Link></li>
+            <li>
+              <Link
+                href="/about"
+                className="hover:text-[var(--color-accent-light)] transition"
+              >
+                About
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/projects"
+                className="hover:text-[var(--color-accent-light)] transition"
+              >
+                Projects
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/contact"
+                className="hover:text-[var(--color-accent-light)] transition"
+              >
+                Contact
+              </Link>
+            </li>
           </ul>
           <div className="flex gap-4 mt-5 text-xl justify-center md:justify-start">
             <a
@@ -115,7 +144,8 @@ export default function Footer() {
           </a>
         </p>
         <p className="text-slate-500 text-sm">
-          © {new Date().getFullYear()} Manmohan Yadav. Software Engineer & Founder, UpTecHunt.
+          © {new Date().getFullYear()} Manmohan Yadav. Software Engineer &
+          Founder, UpTecHunt.
         </p>
       </div>
     </footer>
